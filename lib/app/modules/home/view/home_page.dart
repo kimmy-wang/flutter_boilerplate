@@ -4,6 +4,7 @@ import 'package:flutter_boilerplate/app/modules/edit_todo/edit_todo.dart';
 import 'package:flutter_boilerplate/app/modules/home/home.dart';
 import 'package:flutter_boilerplate/app/modules/stats/stats.dart';
 import 'package:flutter_boilerplate/app/modules/todos_overview/todos_overview.dart';
+import 'package:flutter_boilerplate/app/modules/trending/views/views.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -27,7 +28,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: IndexedStack(
         index: selectedTab.index,
-        children: const [TodosOverviewPage(), StatsPage()],
+        children: const [TrendingPage(), TodosOverviewPage(), StatsPage()],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
@@ -40,6 +41,11 @@ class HomeView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            _HomeTabButton(
+              groupValue: selectedTab,
+              value: HomeTab.trending,
+              icon: const Icon(Icons.trending_up),
+            ),
             _HomeTabButton(
               groupValue: selectedTab,
               value: HomeTab.todos,

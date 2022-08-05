@@ -6,23 +6,33 @@ import 'package:flutter_boilerplate/app/app.dart';
 import 'package:flutter_boilerplate/theme/theme.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:todos_repository/todos_repository.dart';
+import 'package:trending_repository/trending_repository.dart';
 
 import 'helpers/helpers.dart';
 
 void main() {
   late TodosRepository todosRepository;
+  late TrendingRepository trendingRepository;
 
   setUp(() {
     todosRepository = MockTodosRepository();
     when(
       () => todosRepository.getTodos(),
     ).thenAnswer((_) => const Stream.empty());
+
+    trendingRepository = MockTrendingRepository();
+    when(
+      () => trendingRepository.getTrending(),
+    ).thenAnswer((_) => Future.value([]));
   });
 
   group('App', () {
     testWidgets('renders AppView', (tester) async {
       await tester.pumpWidget(
-        App(todosRepository: todosRepository),
+        App(
+          todosRepository: todosRepository,
+          trendingRepository: trendingRepository,
+        ),
       );
 
       expect(find.byType(AppView), findsOneWidget);
