@@ -15,16 +15,10 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   pretty_dio_logger: ^1.2.0-beta-1
-  dio_trending_api:
-    path: packages/dio_trending_api
-  local_storage_todos_api:
-    path: packages/local_storage_todos_api
-  todos_api:
-    path: packages/todos_api
-  todos_repository:
-    path: packages/todos_repository
   trending_api:
     path: packages/trending_api
+  dio_trending_api:
+    path: packages/dio_trending_api
   trending_repository:
     path: packages/trending_repository
 

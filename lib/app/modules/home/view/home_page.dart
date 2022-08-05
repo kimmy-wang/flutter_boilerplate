@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_boilerplate/app/modules/edit_todo/edit_todo.dart';
 import 'package:flutter_boilerplate/app/modules/home/home.dart';
-import 'package:flutter_boilerplate/app/modules/stats/stats.dart';
-import 'package:flutter_boilerplate/app/modules/todos_overview/todos_overview.dart';
+import 'package:flutter_boilerplate/app/modules/search/views/search_page.dart';
 import 'package:flutter_boilerplate/app/modules/trending/views/views.dart';
 
 class HomePage extends StatelessWidget {
@@ -28,18 +26,12 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: IndexedStack(
         index: selectedTab.index,
-        children: const [TrendingPage(), TodosOverviewPage(), StatsPage()],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        key: const Key('homeView_addTodo_floatingActionButton'),
-        onPressed: () => Navigator.of(context).push(EditTodoPage.route()),
-        child: const Icon(Icons.add),
+        children: const [TrendingPage(), SearchPage()],
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _HomeTabButton(
               groupValue: selectedTab,
@@ -48,13 +40,8 @@ class HomeView extends StatelessWidget {
             ),
             _HomeTabButton(
               groupValue: selectedTab,
-              value: HomeTab.todos,
-              icon: const Icon(Icons.list_rounded),
-            ),
-            _HomeTabButton(
-              groupValue: selectedTab,
-              value: HomeTab.stats,
-              icon: const Icon(Icons.show_chart_rounded),
+              value: HomeTab.search,
+              icon: const Icon(Icons.search),
             ),
           ],
         ),

@@ -5,21 +5,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_boilerplate/app/app.dart';
 import 'package:flutter_boilerplate/theme/theme.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:todos_repository/todos_repository.dart';
 import 'package:trending_repository/trending_repository.dart';
 
 import 'helpers/helpers.dart';
 
 void main() {
-  late TodosRepository todosRepository;
   late TrendingRepository trendingRepository;
 
   setUp(() {
-    todosRepository = MockTodosRepository();
-    when(
-      () => todosRepository.getTodos(),
-    ).thenAnswer((_) => const Stream.empty());
-
     trendingRepository = MockTrendingRepository();
     when(
       () => trendingRepository.getTrending(),
@@ -30,7 +23,6 @@ void main() {
     testWidgets('renders AppView', (tester) async {
       await tester.pumpWidget(
         App(
-          todosRepository: todosRepository,
           trendingRepository: trendingRepository,
         ),
       );
@@ -43,7 +35,7 @@ void main() {
     testWidgets('renders MaterialApp with correct themes', (tester) async {
       await tester.pumpWidget(
         RepositoryProvider.value(
-          value: todosRepository,
+          value: trendingRepository,
           child: const AppView(),
         ),
       );
@@ -58,7 +50,7 @@ void main() {
     testWidgets('renders HomePage', (tester) async {
       await tester.pumpWidget(
         RepositoryProvider.value(
-          value: todosRepository,
+          value: trendingRepository,
           child: const AppView(),
         ),
       );
