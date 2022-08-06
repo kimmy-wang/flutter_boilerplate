@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_boilerplate/app/modules/trending/bloc/trending_bloc.dart';
-import 'package:flutter_boilerplate/app/modules/trending/widgets/widgets.dart';
+import 'package:flutter_boilerplate/modules/trending/bloc/trending_bloc.dart';
+import 'package:flutter_boilerplate/modules/trending/widgets/widgets.dart';
 import 'package:trending_repository/trending_repository.dart';
 
 class TrendingPage extends StatelessWidget {

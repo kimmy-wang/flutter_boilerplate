@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_boilerplate/app/modules/home/home.dart';
-import 'package:flutter_boilerplate/app/modules/search/views/search_page.dart';
-import 'package:flutter_boilerplate/app/modules/trending/views/views.dart';
+import 'package:flutter_boilerplate/modules/home/home.dart';
+import 'package:flutter_boilerplate/modules/search/views/search_page.dart';
+import 'package:flutter_boilerplate/modules/trending/views/views.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

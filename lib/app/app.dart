@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_boilerplate/app/modules/home/home.dart';
+import 'package:flutter_boilerplate/modules/home/home.dart';
 import 'package:flutter_boilerplate/l10n/l10n.dart';
 import 'package:flutter_boilerplate/theme/theme.dart';
 import 'package:trending_repository/trending_repository.dart';

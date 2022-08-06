@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_boilerplate/app/modules/home/home.dart';
+import 'package:flutter_boilerplate/modules/home/home.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_boilerplate/app/app.dart';
 import 'package:flutter_boilerplate/theme/theme.dart';
