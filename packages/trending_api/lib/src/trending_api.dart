@@ -13,4 +13,4 @@ abstract class TrendingApi {
 }
 
 /// Error thrown when a [Trending] with a given id is not found.
-class TrendingNotFoundException implements Exception {}
+class TrendingRequestedException implements Exception {}
