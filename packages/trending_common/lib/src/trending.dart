@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:trending_api/src/models/json_map.dart';
+import 'package:trending_common/trending_common.dart';
 
 part 'trending.g.dart';
 

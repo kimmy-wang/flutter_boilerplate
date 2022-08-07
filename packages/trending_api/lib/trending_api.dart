@@ -1,5 +1,5 @@
 /// The interface and models for an API providing access to todos.
 library trending_api;
 
-export 'src/models/models.dart';
+export 'package:trending_common/trending_common.dart';
 export 'src/trending_api.dart';

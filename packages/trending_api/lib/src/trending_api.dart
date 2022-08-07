@@ -1,4 +1,4 @@
-import 'package:trending_api/trending_api.dart';
+import 'package:trending_common/trending_common.dart';
 
 /// {@template trending_api}
 /// The interface for an API that provides access to a list of trending.

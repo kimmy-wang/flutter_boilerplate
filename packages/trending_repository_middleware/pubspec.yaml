@@ -1,4 +1,4 @@
-name: trending_repository
+name: trending_repository_middleware
 description: A repository that handles todo related requests.
 version: 1.0.0+1
 publish_to: none
@@ -7,10 +7,10 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  trending_api:
-    path: ../trending_api
-  trending_repository_middleware:
-    path: ../trending_repository_middleware
+  rxdart: ^0.27.2
+  shared_preferences: ^2.0.7
+  trending_common:
+    path: ../trending_common
 
 dev_dependencies:
   mocktail: ^0.3.0
