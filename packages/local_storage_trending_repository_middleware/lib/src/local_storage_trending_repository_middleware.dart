@@ -16,20 +16,25 @@ class LocalStorageTrendingRepositoryMiddleware extends TrendingRepositoryMiddlew
 
   final SharedPreferences _plugin;
 
-  /// The key used for storing the todos locally.
+  /// The key used for storing the trending locally.
   ///
   /// This is only exposed for testing and shouldn't be used by consumers of
   /// this library.
   @visibleForTesting
   static const kTrendingCollectionKey = '__trending_collection_key__';
 
+  ///
+  static String mTrendingCollectionKey({ String? suffix }) {
+    return '$kTrendingCollectionKey${suffix == null ? '' : '${suffix}__'}';
+  }
+
   String? _getValue(String key) => _plugin.getString(key);
   Future<void> _setValue(String key, String value) =>
       _plugin.setString(key, value);
 
   @override
-  Future<List<Trending>> getTrending() async {
-    final trendingJson = _getValue(kTrendingCollectionKey);
+  Future<List<Trending>> getTrending({ String? suffix }) async {
+    final trendingJson = _getValue(mTrendingCollectionKey(suffix: suffix));
     if (trendingJson != null) {
       final trendingList = List<Map<dynamic, dynamic>>.from(
         json.decode(trendingJson) as List,
@@ -42,8 +47,8 @@ class LocalStorageTrendingRepositoryMiddleware extends TrendingRepositoryMiddlew
   }
 
   @override
-  Future<void> saveTrending(List<Trending> trendingList) {
-    return _setValue(kTrendingCollectionKey, json.encode(trendingList));
+  Future<void> saveTrending(List<Trending> trendingList, { String? suffix }) {
+    return _setValue(mTrendingCollectionKey(suffix: suffix), json.encode(trendingList));
   }
 
 }

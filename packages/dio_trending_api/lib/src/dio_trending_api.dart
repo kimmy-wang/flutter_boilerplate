@@ -15,16 +15,19 @@ class DioTrendingApi extends TrendingApi {
   final Dio _dio;
 
   @override
-  Future<List<Trending>?> getTrending() async {
+  Future<List<Trending>?> getTrending({
+    required int page,
+    required int pageSize,
+  }) async {
     try {
       final res = await _dio.get('/');
       if (res.statusCode == 200) {
         return List<Trending>.from((res.data as Iterable).map(
-              (x) => Trending.fromJson(x as Map<String, dynamic>),
+          (x) => Trending.fromJson(x as Map<String, dynamic>),
         ));
       }
       return [];
-    } on Exception catch(error, stack) {
+    } on Exception catch (error, stack) {
       throw TrendingRequestedException();
     }
   }

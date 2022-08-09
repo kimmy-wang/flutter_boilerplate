@@ -16,18 +16,29 @@ class TrendingRepository {
   final TrendingRepositoryMiddleware? _trendingRepositoryMiddleware;
 
   /// Provides a [Future] of all trending.
-  Future<List<Trending>?> getTrending({ bool pullDown = false }) async {
+  Future<List<Trending>?> getTrending({
+    bool pullDown = false,
+    bool loadMore = false,
+    int page = 1,
+    int pageSize = 25,
+  }) async {
     List<Trending>? trendingList = [];
+    final suffix = loadMore ? '${page}_$pageSize' : null;
     if (_trendingRepositoryMiddleware != null && !pullDown) {
-      print('cache valid');
-      trendingList = await _trendingRepositoryMiddleware!.getTrending();
+      trendingList =
+          await _trendingRepositoryMiddleware!.getTrending(suffix: suffix);
     }
     if (trendingList == null || trendingList.isEmpty) {
-      print('network valid');
-      trendingList = await _trendingApi.getTrending();
+      trendingList = await _trendingApi.getTrending(
+        page: page,
+        pageSize: pageSize,
+      );
     }
-    if (_trendingRepositoryMiddleware != null && trendingList != null && trendingList.isNotEmpty) {
-      await _trendingRepositoryMiddleware!.saveTrending(trendingList);
+    if (_trendingRepositoryMiddleware != null &&
+        trendingList != null &&
+        trendingList.isNotEmpty) {
+      await _trendingRepositoryMiddleware!
+          .saveTrending(trendingList, suffix: suffix);
     }
     return trendingList;
   }

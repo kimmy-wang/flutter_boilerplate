@@ -9,9 +9,9 @@ abstract class TrendingRepositoryMiddleware {
   const TrendingRepositoryMiddleware();
 
   /// Provides a [Future] of all trending.
-  Future<List<Trending>?> getTrending();
+  Future<List<Trending>?> getTrending({ String? suffix });
 
   ///
-  Future<void> saveTrending(List<Trending> trendingList);
+  Future<void> saveTrending(List<Trending> trendingList, { String? suffix });
 
 }

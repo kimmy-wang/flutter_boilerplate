@@ -50,7 +50,6 @@ class _TrendingViewState extends State<TrendingView> {
               _controller.finishRefresh(IndicatorResult.fail);
             }
           } else if (state.operation == TrendingOperation.load) {
-            /// todo: load more data
             if (state.status == TrendingStatus.success) {
               _controller.finishLoad();
             } else if (state.status == TrendingStatus.failure) {
@@ -70,7 +69,11 @@ class _TrendingViewState extends State<TrendingView> {
                 ));
           },
           onLoad: () async {
-            /// todo: dispatch load more event
+            context
+                .read<TrendingBloc>()
+                .add(const TrendingSubscriptionRequested(
+              operation: TrendingOperation.load,
+            ));
           },
           child: BlocBuilder<TrendingBloc, TrendingState>(
             builder: (context, state) {

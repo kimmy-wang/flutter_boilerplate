@@ -8,8 +8,10 @@ abstract class TrendingApi {
   const TrendingApi();
 
   /// Provides a [Future] of all todos.
-  Future<List<Trending>?> getTrending();
-
+  Future<List<Trending>?> getTrending({
+    required int page,
+    required int pageSize,
+  });
 }
 
 /// Error thrown when a [Trending] with a given id is not found.

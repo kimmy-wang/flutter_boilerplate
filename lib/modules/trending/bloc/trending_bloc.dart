@@ -28,14 +28,32 @@ class TrendingBloc extends Bloc<TrendingEvent, TrendingState> {
       operation: event.operation,
     ));
 
+    var page = state.page;
+    final pullDown = event.operation == TrendingOperation.refresh;
+    final loadMore = event.operation == TrendingOperation.load;
+    if (pullDown) {
+      page = 1;
+    } else if (loadMore) {
+      page++;
+    }
+
     await emit.forEach<List<Trending>?>(
       _trendingRepository
-          .getTrending(pullDown: event.operation == TrendingOperation.refresh)
+          .getTrending(pullDown: pullDown, loadMore: loadMore, page: page)
           .asStream(),
-      onData: (trendingList) => state.copyWith(
-        status: TrendingStatus.success,
-        trendingList: trendingList,
-      ),
+      onData: (trendingList) {
+        var newTrendingList = state.trendingList;
+        if (loadMore) {
+          newTrendingList?.addAll(trendingList ?? []);
+        } else {
+          newTrendingList = trendingList;
+        }
+        return state.copyWith(
+          status: TrendingStatus.success,
+          page: page,
+          trendingList: newTrendingList,
+        );
+      },
       onError: (_, __) => state.copyWith(
         status: TrendingStatus.failure,
       ),

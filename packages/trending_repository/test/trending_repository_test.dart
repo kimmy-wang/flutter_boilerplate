@@ -49,7 +49,7 @@ void main() {
 
     setUp(() {
       api = MockTrendingApi();
-      when(() => api.getTrending()).thenAnswer((_) => Future.value(trendings));
+      when(() => api.getTrending(page: 1, pageSize: 20)).thenAnswer((_) => Future.value(trendings));
     });
 
     TrendingRepository createSubject() => TrendingRepository(trendingApi: api);
@@ -72,7 +72,7 @@ void main() {
           isNot(throwsA(anything)),
         );
 
-        verify(() => api.getTrending()).called(1);
+        verify(() => api.getTrending(page: 1, pageSize: 20)).called(1);
       });
 
       test('returns stream of current list todos', () {
