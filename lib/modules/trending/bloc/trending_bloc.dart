@@ -34,12 +34,10 @@ class TrendingBloc extends Bloc<TrendingEvent, TrendingState> {
           .asStream(),
       onData: (trendingList) => state.copyWith(
         status: TrendingStatus.success,
-        operation: TrendingOperation.none,
         trendingList: trendingList,
       ),
       onError: (_, __) => state.copyWith(
         status: TrendingStatus.failure,
-        operation: TrendingOperation.none,
       ),
     );
   }
