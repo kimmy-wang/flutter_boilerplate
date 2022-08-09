@@ -1,4 +1,3 @@
-
 import 'package:trending_common/trending_common.dart';
 
 /// {@template trending_repository_middleware}
@@ -9,9 +8,8 @@ abstract class TrendingRepositoryMiddleware {
   const TrendingRepositoryMiddleware();
 
   /// Provides a [Future] of all trending.
-  Future<List<Trending>?> getTrending({ String? suffix });
+  Future<List<Trending>?> getTrending({String? suffix});
 
   ///
-  Future<void> saveTrending(List<Trending> trendingList, { String? suffix });
-
+  Future<void> saveTrending(List<Trending> trendingList, {String? suffix});
 }
