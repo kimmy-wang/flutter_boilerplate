@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/modules/trending/bloc/trending_bloc.dart';
@@ -19,8 +19,24 @@ class TrendingPage extends StatelessWidget {
   }
 }
 
-class TrendingView extends StatelessWidget {
+class TrendingView extends StatefulWidget {
   const TrendingView({super.key});
+
+  @override
+  State<TrendingView> createState() => _TrendingViewState();
+}
+
+class _TrendingViewState extends State<TrendingView> {
+  final EasyRefreshController _controller = EasyRefreshController(
+    controlFinishRefresh: true,
+    controlFinishLoad: true,
+  );
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,37 +45,55 @@ class TrendingView extends StatelessWidget {
         title: const Text('Trending'),
         centerTitle: true,
       ),
-      body: Center(
-        child: BlocBuilder<TrendingBloc, TrendingState>(
-          builder: (context, state) {
-            if (state.status == TrendingStatus.loading) {
-              return const Center(child: CupertinoActivityIndicator());
+      body: BlocListener<TrendingBloc, TrendingState>(
+        listener: (BuildContext context, TrendingState state) {
+          if (state.operation == TrendingOperation.refresh) {
+            if (state.status == TrendingStatus.success) {
+              _controller.finishRefresh();
             } else if (state.status == TrendingStatus.failure) {
-              return Text('Error');
-            } else if (state.status == TrendingStatus.success) {
-              if (state.trendings == null || state.trendings!.isEmpty) {
-                return Text('Empty');
-              } else {
-                return ListView.builder(
-                  itemCount: state.trendings!.length,
-                  itemBuilder: (context, index) {
-                    final trending = state.trendings![index];
-                    return GestureDetector(
-                      onTap: () {
-                      },
-                      child: RepositoryItem(
-                        index: index + 1,
-                        trending: trending,
-                        last: index == state.trendings!.length - 1,
-                      ),
-                    );
-                  },
-                );
-              }
+              _controller.finishRefresh(IndicatorResult.fail);
             }
-
-            return SizedBox();
+          } else if (state.operation == TrendingOperation.load) {
+            /// todo: load more data
+            if (state.status == TrendingStatus.success) {
+              _controller.finishLoad();
+            } else if (state.status == TrendingStatus.failure) {
+              _controller.finishLoad(IndicatorResult.fail);
+            }
+          }
+        },
+        child: EasyRefresh(
+          controller: _controller,
+          header: const ClassicHeader(),
+          footer: const ClassicFooter(),
+          onRefresh: () async {
+            context
+                .read<TrendingBloc>()
+                .add(const TrendingSubscriptionRequested(
+                  operation: TrendingOperation.refresh,
+                ));
           },
+          onLoad: () async {
+            /// todo: dispatch load more event
+          },
+          child: BlocBuilder<TrendingBloc, TrendingState>(
+            builder: (context, state) {
+              return ListView.builder(
+                itemCount: state.trendingList!.length,
+                itemBuilder: (context, index) {
+                  final trending = state.trendingList![index];
+                  return GestureDetector(
+                    onTap: () {},
+                    child: RepositoryItem(
+                      index: index + 1,
+                      trending: trending,
+                      last: index == state.trendingList!.length - 1,
+                    ),
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );

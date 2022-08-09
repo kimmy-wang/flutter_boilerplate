@@ -2,28 +2,35 @@ part of 'trending_bloc.dart';
 
 enum TrendingStatus { initial, loading, success, failure }
 
+enum TrendingOperation { none, refresh, load }
+
 class TrendingState extends Equatable {
   const TrendingState({
     this.status = TrendingStatus.initial,
-    this.trendings = const [],
+    this.operation = TrendingOperation.none,
+    this.trendingList = const [],
   });
 
   final TrendingStatus status;
-  final List<Trending>? trendings;
+  final TrendingOperation operation;
+  final List<Trending>? trendingList;
 
   TrendingState copyWith({
-    TrendingStatus Function()? status,
-    List<Trending>? Function()? trendings,
+    TrendingStatus? status,
+    TrendingOperation? operation,
+    List<Trending>? trendingList,
   }) {
     return TrendingState(
-      status: status != null ? status() : this.status,
-      trendings: trendings != null ? trendings() : this.trendings,
+      status: status ?? this.status,
+      operation: operation ?? this.operation,
+      trendingList: trendingList ?? this.trendingList,
     );
   }
 
   @override
   List<Object?> get props => [
         status,
-        trendings,
+        operation,
+        trendingList,
       ];
 }

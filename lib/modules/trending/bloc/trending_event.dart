@@ -2,11 +2,15 @@ part of 'trending_bloc.dart';
 
 abstract class TrendingEvent extends Equatable {
   const TrendingEvent();
-
-  @override
-  List<Object?> get props => [];
 }
 
 class TrendingSubscriptionRequested extends TrendingEvent {
-  const TrendingSubscriptionRequested();
+  const TrendingSubscriptionRequested({
+    this.operation = TrendingOperation.none,
+  });
+
+  final TrendingOperation operation;
+
+  @override
+  List<Object?> get props => [operation];
 }
