@@ -41,10 +41,6 @@ class _TrendingViewState extends State<TrendingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Trending'),
-        centerTitle: true,
-      ),
       body: BlocListener<TrendingBloc, TrendingState>(
         listener: (BuildContext context, TrendingState state) {
           if (state.operation == TrendingOperation.refresh) {

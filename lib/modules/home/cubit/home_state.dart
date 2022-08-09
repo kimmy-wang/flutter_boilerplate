@@ -4,11 +4,23 @@ enum HomeTab { trending, search }
 
 class HomeState extends Equatable {
   const HomeState({
-    this.tab = HomeTab.trending,
+    this.tabIndex = 0,
+    this.themeColor = 0xFF13B9FF,
   });
 
-  final HomeTab tab;
+  final int tabIndex;
+  final int themeColor;
+
+  HomeState copyWith({
+    int? tabIndex,
+    int? themeColor,
+  }) {
+    return HomeState(
+      tabIndex: tabIndex ?? this.tabIndex,
+      themeColor: themeColor ?? this.themeColor,
+    );
+  }
 
   @override
-  List<Object> get props => [tab];
+  List<Object> get props => [tabIndex];
 }
