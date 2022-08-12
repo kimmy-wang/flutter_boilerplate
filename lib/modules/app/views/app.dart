@@ -35,6 +35,7 @@ class AppView extends StatelessWidget {
       builder: (BuildContext context, AppState state) => MaterialApp(
         theme: FlutterBoilerplateTheme.light,
         darkTheme: FlutterBoilerplateTheme.dark,
+        themeMode: state.themeMode,
         locale: state.locale,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,

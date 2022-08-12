@@ -35,6 +35,21 @@ class MineView extends StatelessWidget {
               },
               icon: const Icon(Icons.translate),
             ),
+            const Padding(padding: EdgeInsets.only(top: 20)),
+            BlocBuilder<AppCubit, AppState>(
+              builder: (BuildContext context, AppState state) => IconButton(
+                onPressed: () async {
+                  await showThemeModeActionSheet(context);
+                },
+                icon: Icon(
+                  state.themeMode == ThemeMode.system
+                      ? Icons.tonality
+                      : state.themeMode == ThemeMode.light
+                          ? Icons.light_mode
+                          : Icons.dark_mode,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -60,6 +75,32 @@ class MineView extends StatelessWidget {
     );
     if (result != null) {
       BlocProvider.of<AppCubit>(context).setLocale(Locale(result));
+    }
+  }
+
+  Future<void> showThemeModeActionSheet(BuildContext context) async {
+    final result = await showModalActionSheet<ThemeMode>(
+      context: context,
+      actions: const [
+        SheetAction(
+          icon: Icons.tonality,
+          label: '跟随系统',
+          key: ThemeMode.system,
+        ),
+        SheetAction(
+          icon: Icons.dark_mode,
+          label: '黑暗模式',
+          key: ThemeMode.dark,
+        ),
+        SheetAction(
+          icon: Icons.light_mode,
+          label: '白天模式',
+          key: ThemeMode.light,
+        ),
+      ],
+    );
+    if (result != null) {
+      BlocProvider.of<AppCubit>(context).setThemeMode(result);
     }
   }
 }
