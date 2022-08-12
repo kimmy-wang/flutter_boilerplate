@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'widget_nested_common.dart';
+import 'package:flutter_boilerplate/common/extensions/widget_nested_common.dart';
 
 /*
 示例代码：
@@ -215,7 +215,7 @@ extension MultipleWidgetNestedTextSpan<T extends InlineSpan> on List<T> {
 extension MultipleWidgetAddWidgetExtension<T extends Widget> on List<Widget> {
   // 添加一个 widget
   List<Widget> addWidget(Widget widget,
-      {AddWidgetAsListType addType = AddWidgetAsListType.behind}) {
+      {AddWidgetAsListType addType = AddWidgetAsListType.behind,}) {
     if (addType == AddWidgetAsListType.front) {
       return [widget] + this;
     }
@@ -224,7 +224,7 @@ extension MultipleWidgetAddWidgetExtension<T extends Widget> on List<Widget> {
 
   // 添加 widget 数组 然后 返回一个list
   List<Widget> addWidgetList(List<Widget> widgets,
-      {AddWidgetAsListType addType = AddWidgetAsListType.behind}) {
+      {AddWidgetAsListType addType = AddWidgetAsListType.behind,}) {
     if (addType == AddWidgetAsListType.front) {
       return widgets + this;
     }

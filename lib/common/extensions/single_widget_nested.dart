@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-
-import 'widget_nested_common.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/common/extensions/widget_nested_common.dart';
 
 // Commonly used 常用
 // Uncommonly used 不常用
@@ -345,7 +344,6 @@ extension SingleWidgetNestedCommonlyUsedExtension on Widget {
   }) {
     return InkWell(
       key: key,
-      child: this,
       onTap: onTap,
       onDoubleTap: onDoubleTap,
       onLongPress: onLongPress,
@@ -367,6 +365,7 @@ extension SingleWidgetNestedCommonlyUsedExtension on Widget {
       canRequestFocus: canRequestFocus,
       onFocusChange: onFocusChange,
       autofocus: autofocus,
+      child: this,
     );
   }
 
@@ -550,8 +549,10 @@ extension WidgetGestureExtension on Widget {
   }
 
   // 长按手势
-  GestureDetector nestedLongPress(GestureLongPressCallback onLongPress,
-      {Key? key}) {
+  GestureDetector nestedLongPress(
+    GestureLongPressCallback onLongPress, {
+    Key? key,
+  }) {
     return _nestedGestureDetector(onLongPress: onLongPress, key: key);
   }
 
@@ -650,8 +651,10 @@ extension WidgetAsListExtension on Widget {
   }
 
   // 添加一个 widget 然后 返回一个list
-  List<Widget> addWidgetAsList(Widget widget,
-      {AddWidgetAsListType nestedType = AddWidgetAsListType.behind}) {
+  List<Widget> addWidgetAsList(
+    Widget widget, {
+    AddWidgetAsListType nestedType = AddWidgetAsListType.behind,
+  }) {
     if (nestedType == AddWidgetAsListType.front) {
       return [widget, this];
     }
@@ -659,8 +662,10 @@ extension WidgetAsListExtension on Widget {
   }
 
   // 添加 widget 数组 然后 返回一个list
-  List<Widget> addWidgetListAsList(List<Widget> widgets,
-      {AddWidgetAsListType nestedType = AddWidgetAsListType.behind}) {
+  List<Widget> addWidgetListAsList(
+    List<Widget> widgets, {
+    AddWidgetAsListType nestedType = AddWidgetAsListType.behind,
+  }) {
     if (nestedType == AddWidgetAsListType.front) {
       return widgets..add(this);
     }

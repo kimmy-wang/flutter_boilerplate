@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/modules/home/home.dart';
-import 'package:flutter_boilerplate/modules/home/model/module.dart';
-import 'package:flutter_boilerplate/modules/mine/views/views.dart';
-import 'package:flutter_boilerplate/modules/search/views/view.dart';
+import 'package:flutter_boilerplate/modules/mine/mine.dart';
+import 'package:flutter_boilerplate/modules/search/search.dart';
 import 'package:flutter_boilerplate/modules/trending/trending.dart';
 
 const List<Module> modules = [
@@ -71,11 +70,13 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           type: BottomNavigationBarType.fixed,
           selectedItemColor: secondaryColor,
           items: modules
-              .map((module) => BottomNavigationBarItem(
-                    label: module.label,
-                    icon: Icon(module.icon),
-                    activeIcon: Icon(module.icon, color: secondaryColor),
-                  ))
+              .map(
+                (module) => BottomNavigationBarItem(
+                  label: module.label,
+                  icon: Icon(module.icon),
+                  activeIcon: Icon(module.icon, color: secondaryColor),
+                ),
+              )
               .toList(),
         ),
       ),

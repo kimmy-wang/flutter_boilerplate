@@ -8,8 +8,6 @@ import 'package:flutter_boilerplate/common/http/interceptors/base_interceptor.da
 import 'package:flutter_boilerplate/common/http/interceptors/error_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-var dio = Dio();
-
 // 必须是顶层函数
 dynamic _parseAndDecode(String response) {
   return jsonDecode(response);
@@ -30,11 +28,6 @@ abstract class BaseHttp extends DioForNative {
             PrettyDioLogger(
               requestHeader: true,
               requestBody: true,
-              responseBody: true,
-              responseHeader: false,
-              error: true,
-              compact: true,
-              maxWidth: 90,
             )
           ],
     ]);

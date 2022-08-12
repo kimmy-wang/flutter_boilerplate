@@ -12,5 +12,8 @@ Future<void> main() async {
     plugin: await SharedPreferences.getInstance(),
   );
 
-  bootstrap(trendingApi: trendingApi, trendingRepositoryMiddleware: trendingRepositoryMiddleware);
+  bootstrap(
+    trendingApi: trendingApi,
+    trendingRepositoryMiddleware: trendingRepositoryMiddleware,
+  );
 }

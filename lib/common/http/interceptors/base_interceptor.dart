@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter_boilerplate/common/constants/constants.dart';
 
 class BaseInterceptor extends InterceptorsWrapper {
-  final String baseUrl;
 
   BaseInterceptor(this.baseUrl);
+  final String baseUrl;
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
