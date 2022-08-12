@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boilerplate/modules/home/home.dart';
 import 'package:flutter_boilerplate/modules/home/model/module.dart';
+import 'package:flutter_boilerplate/modules/mine/views/views.dart';
 import 'package:flutter_boilerplate/modules/search/views/view.dart';
 import 'package:flutter_boilerplate/modules/trending/trending.dart';
 
 const List<Module> modules = [
   Module(child: TrendingPage(), label: 'Trending', icon: Icons.trending_up),
   Module(child: SearchPage(), label: 'Search', icon: Icons.search),
+  Module(child: MinePage(), label: 'Mine', icon: Icons.settings),
 ];
 
 class HomePage extends StatelessWidget {

@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "title": "Flutter Boilerplate",
-  "@title": {
-    "description": "Title text shown in the AppBar of the Home Page"
-  }
+  "languages": "Languages",
+  "languagesZh": "Chinese",
+  "languagesEn": "English"
 }
