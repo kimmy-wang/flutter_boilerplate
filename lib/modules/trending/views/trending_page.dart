@@ -1,6 +1,7 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boilerplate/modules/home/home.dart';
 import 'package:flutter_boilerplate/modules/trending/bloc/trending_bloc.dart';
 import 'package:flutter_boilerplate/modules/trending/widgets/widgets.dart';
 import 'package:trending_repository/trending_repository.dart';
@@ -41,22 +42,33 @@ class _TrendingViewState extends State<TrendingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<TrendingBloc, TrendingState>(
-        listener: (BuildContext context, TrendingState state) {
-          if (state.operation == TrendingOperation.refresh) {
-            if (state.status == TrendingStatus.success) {
-              _controller.finishRefresh();
-            } else if (state.status == TrendingStatus.failure) {
-              _controller.finishRefresh(IndicatorResult.fail);
-            }
-          } else if (state.operation == TrendingOperation.load) {
-            if (state.status == TrendingStatus.success) {
-              _controller.finishLoad();
-            } else if (state.status == TrendingStatus.failure) {
-              _controller.finishLoad(IndicatorResult.fail);
-            }
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<HomeCubit, HomeState>(
+            listener: (BuildContext context, HomeState state) {
+              if (state.refresh && state.tabIndex == 0) {
+                _controller.callRefresh();
+              }
+            },
+          ),
+          BlocListener<TrendingBloc, TrendingState>(
+            listener: (BuildContext context, TrendingState state) {
+              if (state.operation == TrendingOperation.refresh) {
+                if (state.status == TrendingStatus.success) {
+                  _controller.finishRefresh();
+                } else if (state.status == TrendingStatus.failure) {
+                  _controller.finishRefresh(IndicatorResult.fail);
+                }
+              } else if (state.operation == TrendingOperation.load) {
+                if (state.status == TrendingStatus.success) {
+                  _controller.finishLoad();
+                } else if (state.status == TrendingStatus.failure) {
+                  _controller.finishLoad(IndicatorResult.fail);
+                }
+              }
+            },
+          )
+        ],
         child: EasyRefresh(
           controller: _controller,
           header: const ClassicHeader(),
@@ -72,8 +84,8 @@ class _TrendingViewState extends State<TrendingView> {
             context
                 .read<TrendingBloc>()
                 .add(const TrendingSubscriptionRequested(
-              operation: TrendingOperation.load,
-            ));
+                  operation: TrendingOperation.load,
+                ));
           },
           child: BlocBuilder<TrendingBloc, TrendingState>(
             builder: (context, state) {

@@ -65,7 +65,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           currentIndex: state.tabIndex,
           onTap: (index) {
             _controller.jumpToPage(index);
-            context.read<HomeCubit>().setTab(index);
+            context.read<HomeCubit>().setTab(index, state.tabIndex == index);
           },
           type: BottomNavigationBarType.fixed,
           selectedItemColor: secondaryColor,
