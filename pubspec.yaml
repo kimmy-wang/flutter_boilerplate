@@ -9,6 +9,8 @@ environment:
 dependencies:
   adaptive_dialog: ^1.8.0
   bloc: ^8.0.3
+  cupertino_icons: ^1.0.5
+  easy_refresh: ^3.0.4+1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
@@ -16,7 +18,7 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   pretty_dio_logger: ^1.2.0-beta-1
-  easy_refresh: ^3.0.4+1
+  settings_ui: ^2.0.2
   trending_common:
     path: packages/trending_common
   trending_api:
