@@ -47,38 +47,7 @@ jobs:
       - name: Install Deps
         run: flutter pub get
 
-      - name: Configure Dev Keystore
-        if: github.event.inputs.flavor == 'development'
-        run: |
-          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/flutter_boilerplate.jks
-          echo "storeFile=flutter_boilerplate.jks" >> key.properties
-          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
-          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
-          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
-        env:
-          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY_DEV }}
-          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS_DEV }}
-          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD_DEV }}
-          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD_DEV }}
-        working-directory: android
-
-      - name: Configure Stg Keystore
-        if: github.event.inputs.flavor == 'staging'
-        run: |
-          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/flutter_boilerplate.jks
-          echo "storeFile=flutter_boilerplate.jks" >> key.properties
-          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
-          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
-          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
-        env:
-          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY_STG }}
-          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS_STG }}
-          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD_STG }}
-          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD_STG }}
-        working-directory: android
-
-      - name: Configure Prod Keystore
-        if: github.event.inputs.flavor == 'production'
+      - name: Configure Keystore
         run: |
           echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/flutter_boilerplate.jks
           echo "storeFile=flutter_boilerplate.jks" >> key.properties
@@ -105,4 +74,4 @@ jobs:
           artifacts: "build/app/outputs/flutter-apk/*.apk,build/app/outputs/bundle/${{ github.event.inputs.flavor }}Release/*.aab"
           tag: ${{ github.event.inputs.version }}
           token: ${{ secrets.TOKEN }}
-          prerelease: ${{ github.event.inputs.flavor != "production" }}
+          prerelease: ${{ github.event.inputs.flavor != 'production' }}
